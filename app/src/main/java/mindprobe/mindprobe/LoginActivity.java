@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@gmail.com:foobar123","mindprober@gmail.com:mindprober123","luis.filipe.sf@gmail.com:l189a713"
+        "foo@gmail.com:foobar123","mindprober@gmail.com:mindprober123","luis.filipe.sf@gmail.com:l189a713"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -357,15 +357,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
 
             // TODO: attempt authentication against a network service.
+            //incorrect email is 0. Incorrect password is 1. Both credentials incorrect is 2.
 
-            //incorrect email is 0. Incorrect password is 1.
-
-/*            try {
+            try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 return false;
-            }*/
+            }
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
@@ -375,14 +374,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }else if (pieces[0].equals(mEmail) && !pieces[1].equals(mPassword)) {
                     pass_or_email.set(1);
                     return false;
-                }else{
+                }else if (!pieces[0].equals(mEmail) && pieces[1].equals(mPassword)){
                     pass_or_email.set(0);
                     return false;
+                }else{
+                    pass_or_email.set(2);
                 }
             }
 
-            // TODO: register the new account here.
-            return true;
+            // register the new account.
+            return false;
         }
 
         //This runs on MainActivity..which is great!
@@ -398,9 +399,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (pass_or_email.equals(0)){
                     mEmailView.setError(getString(R.string.incorrect_email));
                     mEmailView.requestFocus();
-                }else{
+                }else if (pass_or_email.equals(1)) {
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
                     mPasswordView.requestFocus();
+                }else{
+                    Intent Register_Intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                    LoginActivity.this.startActivity(Register_Intent);
                 }
             }
         }
