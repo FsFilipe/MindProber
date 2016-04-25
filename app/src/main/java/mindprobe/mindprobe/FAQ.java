@@ -11,7 +11,7 @@ public class FAQ extends Fragment {
 
 
     public FAQ() {
-        // Required empty public constructor
+        // Required empty public constructor (test)
     }
 
 
