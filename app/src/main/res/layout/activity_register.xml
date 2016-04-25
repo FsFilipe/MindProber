@@ -48,19 +48,6 @@
         android:layout_alignParentEnd="true"
         android:hint="Password" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/regbirthdate"
-        android:layout_below="@+id/regpassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Data de Nascimento" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,4 +55,17 @@
         android:id="@+id/regbutton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/regage"
+        android:layout_below="@+id/regpassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/regpassword"
+        android:layout_alignEnd="@+id/regpassword"
+        android:hint="Idade" />
 </RelativeLayout>

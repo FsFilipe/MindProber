@@ -30,10 +30,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -51,14 +49,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
+
+    public static final String[] DUMMY_CREDENTIALS = new String[]{
         "foo@gmail.com:foobar123","mindprober@gmail.com:mindprober123","luis.filipe.sf@gmail.com:l189a713"
     };
+
+    //public static final List<String> DUMMY_CREDENTIALS = new ArrayList<>();
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    final AtomicInteger pass_or_email  = new AtomicInteger();
+    int pass_or_email = 0;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -110,15 +112,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Use AccountManager (API 8+)
             new SetupEmailAutoCompleteTask().execute(null, null);
         }
-    }
-
-    private void writeLine(final CharSequence text) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private boolean mayRequestContacts() {
@@ -369,16 +362,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail) && pieces[1].equals(mPassword)) {
-                    // Account exists.
                     return true;
                 }else if (pieces[0].equals(mEmail) && !pieces[1].equals(mPassword)) {
-                    pass_or_email.set(1);
+                    pass_or_email = 1;
                     return false;
                 }else if (!pieces[0].equals(mEmail) && pieces[1].equals(mPassword)){
-                    pass_or_email.set(0);
+                    pass_or_email = 0;
                     return false;
                 }else{
-                    pass_or_email.set(2);
+                    pass_or_email = 2;
                 }
             }
 
@@ -396,10 +388,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //finish();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
-                if (pass_or_email.equals(0)){
+                if (pass_or_email == 0){
                     mEmailView.setError(getString(R.string.incorrect_email));
                     mEmailView.requestFocus();
-                }else if (pass_or_email.equals(1)) {
+                }else if (pass_or_email == 1) {
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
                     mPasswordView.requestFocus();
                 }else{
@@ -413,6 +405,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+
+        public void writeLine1(final CharSequence text) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
