@@ -2,6 +2,7 @@ package mindprobe.mindprobe;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,13 +18,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.gson.JsonElement;
+
+import org.json.JSONException;
+
+import java.net.MalformedURLException;
+
+import io.socket.IOAcknowledge;
+import io.socket.IOCallback;
+import io.socket.SocketIO;
+import io.socket.SocketIOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static Context context;
     FragmentTransaction fragmentTransaction;
+    public static Button start;
+    static boolean server_connection;
+    public static BluetoothManager bluetoothManager;
+    public static float[] xvalues, yvalues_hr, yvalues_gsr;
+    public static double yvalues_gsr_temp;
+    public static int pos;
+    public static int cycles;
+    public static int hr_value, gsr_value;
+    static boolean start_acquisition;
+    public static int count_connections;
+    public static int global_score;
+    public static boolean mScanning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +57,16 @@ public class MainActivity extends AppCompatActivity
         context = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        pos = 0;
+        cycles = 0;
+        hr_value = 0;
+        gsr_value = 0;
+        server_connection = false;
+        start_acquisition = false;
+        count_connections = 0;
+        start = (Button)findViewById(R.id.start);
+
+        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +90,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+    }
+
+    public void button_start(View view) throws JSONException {
+        Bluetooth ble = new Bluetooth(context,MainActivity.this);
     }
 
     @Override
@@ -100,13 +139,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container,new GestaoConteudos());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Gestão Conteúdos");
+            getSupportActionBar().setTitle("Gestão de Estudos");
             item.setChecked(true);
         } else if (id == R.id.nav_gallery) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_container,new AvaliacaoConteudos());
             fragmentTransaction.commit();
-            getSupportActionBar().setTitle("Avaliação Conteúdos");
+            getSupportActionBar().setTitle("Avaliação de Conteúdos");
             item.setChecked(true);
         } else if (id == R.id.nav_slideshow) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -116,7 +155,7 @@ public class MainActivity extends AppCompatActivity
             item.setChecked(true);
         } else if (id == R.id.nav_signals) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_container,new FAQ());
+            fragmentTransaction.replace(R.id.main_container,new signals_visualization());
             fragmentTransaction.commit();
             getSupportActionBar().setTitle("Sinais (ADMIN)");
             item.setChecked(true);

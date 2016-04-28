@@ -24,7 +24,6 @@ public class plot2d extends View {
         this.cycles = cycles;
         this.pos = pos;
         paint = new Paint();
-
     }
 
     @Override

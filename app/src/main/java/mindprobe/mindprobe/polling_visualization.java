@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class polling_visualization extends Fragment {
 
-    ARSEvaluation dv ;
+    DrawingView dv ;
     LinearLayout gradient;
     TextView score;
     private Paint mPaint;
@@ -26,11 +26,11 @@ public class polling_visualization extends Fragment {
 
         score = (TextView)rootView.findViewById(R.id.score);
         mPaint = new Paint();
-        dv = new ARSEvaluation(MainActivity.context, gradient, score);
+        dv = new DrawingView(MainActivity.context, gradient, score);
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Verbose!
         gradient.addView(dv, lp);
 
-        score.setText(Integer.toString(ARSEvaluation.global_score));
+        score.setText(Integer.toString(DrawingView.global_score));
 
         return rootView;
     }

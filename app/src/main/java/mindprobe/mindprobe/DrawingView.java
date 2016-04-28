@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ARSEvaluation extends View {
+public class DrawingView extends View {
 
     public int width;
     public  int height;
@@ -26,7 +26,7 @@ public class ARSEvaluation extends View {
     private Path circlePath;
     public static int global_score;
 
-    public ARSEvaluation(Context c, LinearLayout gradient1, TextView score1) {
+    public DrawingView(Context c, LinearLayout gradient1, TextView score1) {
         super(c);
         context=c;
         score = score1;
@@ -40,8 +40,6 @@ public class ARSEvaluation extends View {
         //circlePaint.setStyle(Paint.Style.STROKE);
         //circlePaint.setStrokeJoin(Paint.Join.MITER);
         //circlePaint.setStrokeWidth(2f);
-
-
     }
 
     @Override

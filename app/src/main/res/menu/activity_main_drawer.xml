@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_playlist_add_black_24dp"
-            android:title="Gestão de Conteúdos" />
+            android:title="Gestão de Estudos" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_playlist_add_check_black_24dp"
