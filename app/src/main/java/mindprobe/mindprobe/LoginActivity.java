@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
 
     public static final String[] DUMMY_CREDENTIALS = new String[]{
-        "foo@gmail.com:foobar123","mindprober@gmail.com:mindprober123","luis.filipe.sf@gmail.com:l189a713"
+        "foo@gmail.com:foobar123","mindprober@gmail.com:mindprober123","luis.filipe.sf@gmail.com:l189a713","admin@:admin"
     };
 
     //public static final List<String> DUMMY_CREDENTIALS = new ArrayList<>();
@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    public static int user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +150,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -166,6 +166,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
+        if (email.contains("admin")){
+            user = 1;
+        }else{
+            user = 0;
+        }
+
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;

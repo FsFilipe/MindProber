@@ -21,6 +21,7 @@
         <item
             android:id="@+id/nav_signals"
             android:icon="@drawable/ic_swap_calls_black_24dp"
+            android:visible="false"
             android:title="Sinais" />
     </group>
 
