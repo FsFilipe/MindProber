@@ -112,7 +112,6 @@ public class Bluetooth{
                                 arrayListBluetoothDevices.add(device);
 
                                 if (device.getAddress().equals("EF:17:4B:0F:93:29")){ //Francisco
-                                    //if (device.getAddress().equals("E2:B3:E5:93:04:3C")){ //meireles
                                     bdDevice = device;
                                     connect_to_device();
                                 }
@@ -131,7 +130,6 @@ public class Bluetooth{
                                 {
                                     arrayListBluetoothDevices.add(device);
                                     if (device.getAddress().equals("EF:17:4B:0F:93:29")){ //Francisco
-                                        //if (device.getAddress().equals("E2:B3:E5:93:04:3C")){ //meireles
                                         bdDevice = device;
                                         connect_to_device();
                                     }

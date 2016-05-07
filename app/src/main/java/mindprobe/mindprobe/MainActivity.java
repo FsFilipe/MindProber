@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     public static int count_connections;
     public static int global_score;
     public static boolean mScanning;
+    public NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +65,9 @@ public class MainActivity extends AppCompatActivity
         server_connection = false;
         start_acquisition = false;
         count_connections = 0;
-        start = (Button)findViewById(R.id.start);
+        start = (Button) findViewById(R.id.start);
 
         bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Abrirá a gestão de conteúdos...Pode ter outra acção", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -84,16 +76,42 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container,new HomeFragment());
+        fragmentTransaction.add(R.id.main_container, new HomeFragment());
         fragmentTransaction.commit();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Snackbar.make(view, "Abrirá a gestão de conteúdos...Pode ter outra acção", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container,new GestaoConteudos());
+                fragmentTransaction.commit();
+                getSupportActionBar().setTitle("Gestão de Estudos");
+                navigationView.getMenu().getItem(1).setChecked(true);
+            }
+        });
+
+        xvalues = new float[60];
+        yvalues_hr = new float[60];
+        yvalues_gsr = new float[60];
+        for (int i = 0; i < 60; i++) {
+            float time = 0;
+            xvalues[i] = time;
+            yvalues_hr[i] = 0;
+            yvalues_gsr[i] = 0;
+        }
     }
 
     public void button_start(View view) throws JSONException {
         Bluetooth ble = new Bluetooth(context,MainActivity.this);
+        writeLine("BLE");
     }
 
     @Override
