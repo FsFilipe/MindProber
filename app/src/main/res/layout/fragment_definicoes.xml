@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context="mindprobe.mindprobe.Definicoes">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -21,7 +19,7 @@
             android:inputType="number"
             android:hint="Host IP"
             android:ems="10"
-            android:id="@+id/editText2" />
+            android:id="@+id/host_ip" />
 
         <Space
             android:layout_width="match_parent"
@@ -30,10 +28,10 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:hint="Host Port"
             android:ems="10"
-            android:id="@+id/editText" />
+            android:id="@+id/host_port" />
 
         <Space
             android:layout_width="match_parent"
@@ -43,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guardar Definições"
+            android:onClick="button_save_settings"
             android:id="@+id/button_settings" />
 
     </LinearLayout>

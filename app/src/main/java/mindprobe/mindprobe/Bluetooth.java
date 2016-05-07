@@ -32,7 +32,6 @@ public class Bluetooth{
 
     Context context;
     Activity act;
-    public static String host;
     BluetoothDevice bdDevice;
     static BluetoothAdapter bluetoothAdapter;
     ArrayList<BluetoothDevice> arrayListBluetoothDevices;
@@ -53,8 +52,6 @@ public class Bluetooth{
     public Bluetooth(Context c, Activity a) {
         this.act = a;
         this.context=c;
-        this.host = "http://192.168.1.111:3701/";
-        //this.host2 = "http://192.168.1.111:3702/";
         this.mHandler = new Handler();
         this.handlertest = new Handler();
         this.SCAN_PERIOD = 120000;
@@ -175,7 +172,7 @@ public class Bluetooth{
         if (MainActivity.server_connection == false) {
 
             try {
-                socket = new SocketIO(host);
+                socket = new SocketIO(MainActivity.host);
             } catch (MalformedURLException e) {
                 writeLine("Error creating socket!");
             }

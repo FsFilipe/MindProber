@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     public static boolean mScanning;
     public NavigationView navigationView;
     private Boolean exit = false;
+    public static String host;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity
         start_acquisition = false;
         count_connections = 0;
         start = (Button) findViewById(R.id.start);
+
+        host = "http://192.168.1.111:3701/";
 
         bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 
@@ -117,7 +120,19 @@ public class MainActivity extends AppCompatActivity
 
     public void button_start(View view) throws JSONException {
         Bluetooth ble = new Bluetooth(context,MainActivity.this);
-        writeLine("BLE");
+        writeLine(host);
+    }
+
+    public void button_save_settings(View view){
+
+        Definicoes.user_host_ip = Definicoes.mHostIP.getText().toString();
+        Definicoes.user_host_port = Definicoes.mHostPort.getText().toString();
+
+        String temp_host = Definicoes.user_host_ip.concat(":");
+        temp_host = temp_host.concat(Definicoes.user_host_port);
+
+        host = temp_host;
+        writeLine(temp_host);
     }
 
     @Override
