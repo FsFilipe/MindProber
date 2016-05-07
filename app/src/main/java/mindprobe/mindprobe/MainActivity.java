@@ -200,6 +200,12 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             getSupportActionBar().setTitle("MindProber");
             item.setChecked(true);
+        } else if (id == R.id.nav_settings) {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_container,new Definicoes());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("Definições");
+            item.setChecked(true);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
