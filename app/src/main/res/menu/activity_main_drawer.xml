@@ -25,13 +25,4 @@
             android:title="Sinais" />
     </group>
 
-<!--    <item android:title="Administrador">
-        <menu>
-            <item
-                android:id="@+id/nav_signals"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Sinais" />
-        </menu>
-    </item>-->
-
 </menu>
