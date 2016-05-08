@@ -16,6 +16,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:digits="0123456789."
             android:inputType="number"
             android:hint="Host IP"
             android:ems="10"
@@ -37,12 +38,26 @@
             android:layout_width="match_parent"
             android:layout_height="6dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guardar Definições"
-            android:onClick="button_save_settings"
-            android:id="@+id/button_settings" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar Definições"
+                android:onClick="button_save_settings"
+                android:id="@+id/button_settings" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mostrar Host"
+                android:onClick="button_show_host"
+                android:id="@+id/button_host"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
     </LinearLayout>
 </FrameLayout>

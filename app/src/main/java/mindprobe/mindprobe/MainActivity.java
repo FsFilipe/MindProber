@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -120,7 +121,6 @@ public class MainActivity extends AppCompatActivity
 
     public void button_start(View view) throws JSONException {
         Bluetooth ble = new Bluetooth(context,MainActivity.this);
-        writeLine(host);
     }
 
     public void button_save_settings(View view){
@@ -130,9 +130,17 @@ public class MainActivity extends AppCompatActivity
 
         String temp_host = Definicoes.user_host_ip.concat(":");
         temp_host = temp_host.concat(Definicoes.user_host_port);
+        host = "http://"+temp_host+"/";
 
-        host = temp_host;
-        writeLine(temp_host);
+        //Fechar o teclado
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(Definicoes.mHostPort.getWindowToken(), 0);
+
+        writeLine("Definições guardadas");
+    }
+
+    public void button_show_host(View view){
+        writeLine(host);
     }
 
     @Override
